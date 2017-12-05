@@ -1,0 +1,53 @@
+CREATE TABLE Order
+(
+    `ord_num`        INT         NOT NULL, 
+    `actual_date`    DATETIME    NULL, 
+    `expected_date`  DATETIME    NULL, 
+    `receive_date`   DATETIME    NULL, 
+    `cust_id`        INT         NULL, 
+    `part_num`       INT         NULL, 
+    `emp_id`         INT         NULL, 
+    PRIMARY KEY (ord_num)
+);
+
+
+-- Employee Table Create SQL
+CREATE TABLE Employee
+(
+    `emp_id`  INT            NOT NULL, 
+    `f_name`  VARCHAR(45)    NULL, 
+    `l_name`  VARCHAR(45)    NULL, 
+    `Zip`     INT            NULL, 
+    PRIMARY KEY (emp_id)
+);
+
+ALTER TABLE Employee ADD CONSTRAINT FK_Employee_emp_id_Order_emp_id FOREIGN KEY (emp_id)
+ REFERENCES Order (emp_id)  ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+
+-- Customer Table Create SQL
+CREATE TABLE Customer
+(
+    `cust_id`  INT            NOT NULL, 
+    `f_name`   VARCHAR(45)    NULL, 
+    `l_name`   VARCHAR(45)    NULL, 
+    `Zip`      INT            NULL, 
+    PRIMARY KEY (cust_id)
+);
+
+ALTER TABLE Customer ADD CONSTRAINT FK_Customer_cust_id_Order_cust_id FOREIGN KEY (cust_id)
+ REFERENCES Order (cust_id)  ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+
+-- Parts Table Create SQL
+CREATE TABLE Parts
+(
+    `part_num`   INT            NOT NULL, 
+    `part_name`  VARCHAR(45)    NULL, 
+    `price`      INT            NULL, 
+    `quantity`   INT            NULL, 
+    PRIMARY KEY (part_num)
+);
+
+ALTER TABLE Parts ADD CONSTRAINT FK_Parts_part_num_Order_part_num FOREIGN KEY (part_num)
+ REFERENCES Order (part_num)  ON DELETE RESTRICT ON UPDATE RESTRICT;
